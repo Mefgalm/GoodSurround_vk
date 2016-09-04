@@ -1,0 +1,145 @@
+@import 'https://fonts.googleapis.com/css?family=Droid+Sans:400,700';
+
+#color-scheme {
+    color: #18121e;
+    color: #233237;
+    color: #984b43;
+    color: #eac67a;
+}
+
+body, html {
+    margin: 0;
+    font-family: 'Droid Sans', sans-serif;
+    font-size: 16px;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-color: #18121e;
+}
+
+.animated, .animated:hover {
+    transition: 1s;
+    transition-timing-function: ease-in-out;
+}
+.animated.quick {
+    transition: 0.3s;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 13px;
+    width: 13px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 13px;
+    background-color: #984b43;
+}
+
+.scheduling-container {
+    height: 100vh;
+}
+
+.users-container {
+    height: 100%;
+    width: calc(40% + 100px);
+    width: -webkit-calc(40% + 100px);
+    position: absolute;
+    top: 0;
+    right: -40%;
+    display: flex;
+}
+.users-container.slided {
+    right: 0;
+    transition: 1s;
+}
+
+.users-container .arrow {
+    min-width: 100px;
+    width: 100px;
+    background-color: #984b43;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 20px 0 0 20px;
+    color: #500000;
+    border: 0;
+}
+.users-container .arrow:hover {
+    background-color: #c5564d;
+}
+
+.users-container.slided .arrow i {
+    transform: rotate(180deg);
+}
+
+.users-container .content {
+    width: 100%;
+    background-color: #233237;
+    overflow-y: scroll;
+    padding: 25px;
+}
+
+.users-container .user-row {
+    box-shadow: 0 0 0 1px #000000;
+    border-radius: 5px;
+    background-color: #eac67a;
+    margin: 0 auto 7px;
+    padding: 7px;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+}
+.users-container .user-row:hover {
+    background-color: #ffe79f;
+}
+
+.user-row .avatar,
+.user-row .name,
+.user-row .albums-count,
+.user-row .songs-count,
+.vertical-separator {
+    display: inline-block;
+}
+
+.user-row .avatar img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.user-row .name {
+    width: 200px;
+    padding-left: 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+}
+.user-row .name:after {
+    content: ' ';
+    display: block;
+    width: 40px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(to right, rgba(234, 198, 122, 0.5) 0%, rgba(234, 198, 122, 0.9) 50%, rgba(234, 198, 122, 1) 100%);
+}
+.user-row:hover > .name:after {
+    background: linear-gradient(to right, rgba(255, 231, 159, 0.5) 0%, rgba(255, 231, 159, 0.9) 50%, rgba(255, 231, 159, 1) 100%);
+}
+
+.user-row .albums-count,
+.user-row .songs-count {
+    width: 70px;
+    text-align: center;
+    margin-left: auto;
+}

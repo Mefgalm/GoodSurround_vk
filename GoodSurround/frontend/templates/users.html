@@ -5,6 +5,26 @@
     <title>Users</title>
 </head>
 <body>
-
+    <div class="users-container">
+        <div class="user-row" ng-repeat="user in users">
+            <div class="avatar">
+                <img ng-src="{{user.avatar}}" />
+            </div>
+            <div class="vertical-separator"></div>
+            <div class="name">
+                <span>{{user.name}}</span>
+            </div>
+            <div class="vertical-separator"></div>
+            <div class="albums-count">
+                <i class="fa fa-book" aria-hidden="true"></i>
+                <span>{{user.albumsCount}}</span>
+            </div>
+            <div class="vertical-separator"></div>
+            <div class="songs-count">
+                <i class="fa fa-music" aria-hidden="true"></i>
+                <span>{{user.songsCount}}</span>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

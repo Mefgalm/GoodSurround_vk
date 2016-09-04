@@ -1,5 +1,11 @@
-angular.module('GoodSurround').controller('UsersController', ['$scope',
+angular.module('GoodSurround').controller('ScheduleController', ['$scope',
     function ($scope) {
+        $scope.displayUsers = false;
+
+        $scope.toggleUsersPanel = function () {
+            $scope.displayUsers = !$scope.displayUsers;
+        };
+
         $scope.users = [{
             avatar: 'http://a3.mzstatic.com/us/r30/Purple/v4/e0/9d/64/e09d64ec-b4f1-5e55-3599-308e29d5a94d/icon100x100.png',
             name: 'Dmitry Outstanding',
@@ -16,4 +22,10 @@ angular.module('GoodSurround').controller('UsersController', ['$scope',
             albumsCount: 3,
             songsCount: 105
         }];
+        $scope.users.push({
+            avatar: 'https://yt3.ggpht.com/-5mSnQcMR1E8/AAAAAAAAAAI/AAAAAAAAAAA/cW36ovOzVZw/s100-c-k-no-mo-rj-c0xffffff/photo.jpg',
+            name: 'Here comes some incredibly long name which purpose is only to test it\'s displaying',
+            albumsCount: 7,
+            songsCount: 783
+        });
     }]);
