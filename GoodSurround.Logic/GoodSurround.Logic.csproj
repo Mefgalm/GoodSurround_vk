@@ -66,7 +66,8 @@
     <Compile Include="Response\ApiResponse.cs" />
     <Compile Include="Vk\AuthService.cs" />
     <Compile Include="Vk\ScheduleService.cs" />
-    <Compile Include="Vk\VkWebService.cs" />
+    <Compile Include="Vk\UserService.cs" />
+    <Compile Include="Vk\WebService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

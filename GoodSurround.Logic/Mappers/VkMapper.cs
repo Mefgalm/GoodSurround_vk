@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoodSurround.Logic.Mappers
 {
-    internal sealed class VkMapper
+    public static class VkMapper
     {
         public static DataModels.Album GetAlbum(VkModels.Album album)
         {

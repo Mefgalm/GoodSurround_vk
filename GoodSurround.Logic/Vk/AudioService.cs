@@ -13,8 +13,7 @@ namespace GoodSurround.Logic.Vk
     public class AudioService : IDisposable
     {
         private readonly GoodSurroundDbContext _dbContext;
-        private readonly VkMapper _vkMapper;
-        private readonly VkWebService _vkWebService;
+        private readonly WebService _vkWebService;
         private const int TokenExpiredAtDays = 2;
 
         private static Logger _logger = LogManager.GetCurrentClassLogger();
@@ -22,8 +21,7 @@ namespace GoodSurround.Logic.Vk
         public AudioService()
         {
             _dbContext = new GoodSurroundDbContext();
-            _vkMapper = new VkMapper();
-            _vkWebService = new VkWebService();
+            _vkWebService = new WebService();
         }
 
         public ApiResponse<object> LoadMusic(DataModels.User user)
@@ -80,8 +78,9 @@ namespace GoodSurround.Logic.Vk
             if (vkAudioEntity.response == null)
                 return new ApiResponse<object>("Audio response is null");
 
-            user.AlbumsCount = vkAlbumEntity.response.count;
-            user.AudiosCount = vkAudioEntity.response.count;
+            user.AlbumsCount = vkAlbumEntity.response.items.Count();
+            user.AudiosCount = vkAudioEntity.response.items.Count();
+            _dbContext.Entry(user).State = System.Data.Entity.EntityState.Modified;
 
             //map albums
             IEnumerable<DataModels.Album> albums = vkAlbumEntity
@@ -127,6 +126,43 @@ namespace GoodSurround.Logic.Vk
             };
         }
 
+        public ApiResponse<IEnumerable<ApiModels.Audio>> GetAudios(DataModels.User user, int skip, int take)
+        {
+            if (take <= 0)
+                return new ApiResponse<IEnumerable<ApiModels.Audio>>()
+                {
+                    Ok = true,
+                    Data = Enumerable.Empty<ApiModels.Audio>(),
+                };
+
+            if (skip < 0)
+                skip = 0;
+
+
+            List<ApiModels.Audio> audioList = _dbContext.Audios
+                .Where(x => x.UserId == user.Id)
+                .OrderByDescending(x => x.Date)
+                .Skip(skip)
+                .Take(take)
+                .ToList()
+                .Select(x => ApiMapper.GetAudio(x))
+                .ToList();
+
+            for (int i = 0; i < audioList.Count(); i++)
+            {
+                AudioById audioEntity = _vkWebService.GetAudio(user.AccessToken, user.Id, audioList[i].VkId);
+
+                string url = audioEntity?.response?.FirstOrDefault()?.url;
+                audioList[i].Url = url;
+            }
+
+            return new ApiResponse<IEnumerable<ApiModels.Audio>>()
+            {
+                Ok = true,
+                Data = audioList.Where(x => !string.IsNullOrWhiteSpace(x.Url)),
+            };
+        }
+
         public ApiResponse<IEnumerable<ApiModels.Audio>> GetAudios(DataModels.User user, int scheduleId, int skip, int take)
         {
             if (take <= 0)
@@ -167,7 +203,7 @@ namespace GoodSurround.Logic.Vk
                  }))
                 .SelectMany(x => x);
 
-            List<ApiModels.Audio> audios =
+            List<ApiModels.Audio> audioList =
                 (from s in scheduleQry
 
                  join a in _dbContext.Audios on 
@@ -196,18 +232,18 @@ namespace GoodSurround.Logic.Vk
                 .Select(x => ApiMapper.GetAudio(x.Audio))
                 .ToList();
 
-            for(int i = 0; i < audios.Count(); i++)
+            for(int i = 0; i < audioList.Count(); i++)
             {
-                AudioById audioEntity = _vkWebService.GetAudio(user.AccessToken, user.Id, audios[i].VkId);
+                AudioById audioEntity = _vkWebService.GetAudio(user.AccessToken, user.Id, audioList[i].VkId);
 
                 string url = audioEntity?.response?.FirstOrDefault()?.url;
-                audios[i].Url = url;                
+                audioList[i].Url = url;                
             }
 
             return new ApiResponse<IEnumerable<ApiModels.Audio>>()
             {
                 Ok = true,
-                Data = audios.Where(x => !string.IsNullOrWhiteSpace(x.Url)),
+                Data = audioList.Where(x => !string.IsNullOrWhiteSpace(x.Url)),
             };
         }
 

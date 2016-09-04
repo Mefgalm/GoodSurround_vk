@@ -17,21 +17,15 @@ namespace GoodSurround.ApiControllers
         }
 
         [HttpPost, Route("register")]
-        public ApiResponse<DataModels.User> RegisterUser([FromBody]RegisterRequest request)
+        public ApiResponse<ApiModels.User> RegisterUser([FromBody]RegisterRequest request)
         {
             return _vkService.RegisterNewUser(request.Code);
         }
 
         [HttpPut, Route("updateToken")]
-        public ApiResponse<DataModels.User> UpdateToken(Guid token)
+        public ApiResponse<ApiModels.User> UpdateToken(Guid token)
         {
             return _vkService.UpdateToken(token);
-        }
-
-        [HttpGet, Route("test")]
-        public string Test(string name)
-        {
-            return "Hello " + name;
         }
 
         protected override void Dispose(bool disposing)

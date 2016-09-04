@@ -37,5 +37,12 @@ namespace GoodSurround.ApiControllers
 
             return _vkScheduleService.RemoveSchedule(response.Data, scheduleId);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            _vkAuthService.Dispose();
+            _vkScheduleService.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }
