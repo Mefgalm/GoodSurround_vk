@@ -1,14 +1,14 @@
-angular.module('GoodSurround', []);
+angular.module('GoodSurround', ['ngRoute']);
 
 angular.module('GoodSurround').config(['$routeProvider', '$httpProvider', '$locationProvider',
 function ($routeProvider, $httpProvider, $locationProvider) {
     $routeProvider.
     when('/', {
-        templateUrl: 'views/home.html',
+        templateUrl: 'templates/home.html',
         controller: 'HomeController'
     }).
     when('/find', {
-        templateUrl: 'views/find.html',
+        templateUrl: 'templates/find.html',
         controller: 'FindController'
     }).
     otherwise({

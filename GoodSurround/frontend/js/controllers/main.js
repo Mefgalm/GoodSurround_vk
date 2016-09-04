@@ -1,4 +1,4 @@
-angular.module('GoodSurround').controller('MainController', ['$scope',
+angular.module('GoodSurround').controller('HomeController', ['$scope',
 function ($scope) {
     $scope.test = 'hai';
 }]);

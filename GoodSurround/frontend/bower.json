@@ -14,5 +14,9 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "angular-route": "^1.5.8",
+    "underscore": "^1.8.3"
+  }
 }
