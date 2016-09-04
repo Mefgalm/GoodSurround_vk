@@ -3,9 +3,9 @@ angular.module('GoodSurround', ['ngRoute']);
 angular.module('GoodSurround').config(['$routeProvider', '$httpProvider', '$locationProvider',
 function ($routeProvider, $httpProvider, $locationProvider) {
     $routeProvider.
-    when('/', {
-        templateUrl: 'templates/home.html',
-        controller: 'HomeController'
+    when('/login', {
+        templateUrl: 'templates/login.html',
+        controller: 'LoginController'
     }).
     when('/users', {
         templateUrl: 'templates/users.html',
@@ -19,8 +19,8 @@ function ($routeProvider, $httpProvider, $locationProvider) {
         redirectTo: '/'
     });
 
-    // $locationProvider.html5Mode({
-    //     enabled: true,
-    //     requireBase: false
-    // });
+    //$locationProvider.html5Mode({
+    //    enabled: true,
+    //    requireBase: false
+    //});
 }]);

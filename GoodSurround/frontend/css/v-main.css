@@ -1,0 +1,43 @@
+.vk-login-button {
+    color: white;
+    background-color: #5e81a8;
+
+    border-radius: 5px;
+
+    border: 0px;
+    height: 50px;
+    width: 300px;
+
+    font-size: 12px;
+}
+
+.vk-login-button-vertical-line {
+    border-left: 2px solid white;
+    width: 1px;
+    
+    margin-left: 4px;
+    margin-right: 7px;
+}
+
+.vk-login-button:hover {
+    background-color: #465F7A;
+    cursor: pointer;
+}
+
+.register-form {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /*width: 200px;
+    margin: 0 auto;*/
+}
+
+.project-name {
+    text-align: center;
+    margin-bottom: 140px;
+    font-style: italic;
+
+    font-size: 50px;
+}
