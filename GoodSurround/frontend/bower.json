@@ -1,0 +1,18 @@
+{
+  "name": "GoodSurround",
+  "homepage": "https://github.com/Mefgalm/GoodSurround_vk",
+  "authors": [
+    "DmitryShashkov <dmitry.the.wise@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -243,3 +243,7 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+#----------------------------------------------------------
+.idea/
+GoodSurround/frontend/bower_components/
