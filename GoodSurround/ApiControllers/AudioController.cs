@@ -28,7 +28,7 @@ namespace GoodSurround.ApiControllers
             return _vkMusicService.LoadMusic(response.Data);
         }
 
-        [HttpGet, Route("audios")]
+        [HttpGet, Route("scheduleAudios")]
         public ApiResponse<IEnumerable<ApiModels.Audio>> GetAudios(Guid token, int scheduleId, int skip, int take)
         {
             ApiResponse<DataModels.User> response = _vkAuthService.CheckToken(token);
@@ -38,9 +38,20 @@ namespace GoodSurround.ApiControllers
             return _vkMusicService.GetAudios(response.Data, scheduleId, skip, take);
         }
 
+        [HttpGet, Route("audios")]
+        public ApiResponse<IEnumerable<ApiModels.Audio>> GetAudios(Guid token, int skip, int take)
+        {
+            ApiResponse<DataModels.User> response = _vkAuthService.CheckToken(token);
+            if (!response.Ok)
+                return new ApiResponse<IEnumerable<ApiModels.Audio>>(response.ErrorMessage);
+
+            return _vkMusicService.GetAudios(response.Data, skip, take);
+        }
+
         protected override void Dispose(bool disposing)
         {
             _vkAuthService.Dispose();
+            _vkMusicService.Dispose();
             base.Dispose(disposing);
         }
     }

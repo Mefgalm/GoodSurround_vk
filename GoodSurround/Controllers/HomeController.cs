@@ -7,10 +7,8 @@ using GoodSurround.Logic;
 
 namespace GoodSurround.Controllers
 {
-    //test controller
-    public class AuthController : Controller
+    public class HomeController : Controller
     {
-
         public ActionResult Index()
         {
             return View();

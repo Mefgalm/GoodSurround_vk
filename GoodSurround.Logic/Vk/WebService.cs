@@ -11,7 +11,7 @@ using NLog;
 
 namespace GoodSurround.Logic.Vk
 {
-    internal class VkWebService
+    internal class WebService
     {
         private readonly int VkAppId = int.Parse(ConfigurationManager.AppSettings["VkAppId"]);
         private readonly string VkAppSercret = ConfigurationManager.AppSettings["VkAppSercret"];

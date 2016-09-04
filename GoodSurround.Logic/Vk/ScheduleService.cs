@@ -9,14 +9,12 @@ using System.Threading.Tasks;
 
 namespace GoodSurround.Logic.Vk
 {
-    public class ScheduleService
+    public class ScheduleService : IDisposable
     {
         private readonly GoodSurroundDbContext _dbContext;
-        private readonly VkMapper _vkMapper;
 
         public ScheduleService()
         {
-            _vkMapper = new VkMapper();
             _dbContext = new GoodSurroundDbContext();
         }
 
@@ -163,6 +161,11 @@ namespace GoodSurround.Logic.Vk
                 audioList[k].Order = audioList[n].Order;
                 audioList[n].Order = value;
             }
+        }
+
+        public void Dispose()
+        {
+            _dbContext.Dispose();
         }
     }
 }
