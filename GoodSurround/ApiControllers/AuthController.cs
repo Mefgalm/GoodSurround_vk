@@ -9,28 +9,28 @@ namespace GoodSurround.ApiControllers
     [RoutePrefix("api/v1/auth")]
     public class AuthController : ApiController
     {
-        public readonly AuthService _vkService;
+        public readonly AuthService _vkAuthService;
 
         public AuthController()
         {
-            _vkService = new AuthService();
+            _vkAuthService = new AuthService();
         }
 
         [HttpPost, Route("register")]
-        public ApiResponse<ApiModels.User> RegisterUser([FromBody]RegisterRequest request)
+        public ApiResponse<ApiModels.User> Register([FromBody]RegisterRequest request)
         {
-            return _vkService.RegisterNewUser(request.Code);
+            return _vkAuthService.RegisterNewUser(request.Code);
         }
 
         [HttpPut, Route("updateToken")]
         public ApiResponse<ApiModels.User> UpdateToken(Guid token)
         {
-            return _vkService.UpdateToken(token);
+            return _vkAuthService.UpdateToken(token);
         }
 
         protected override void Dispose(bool disposing)
         {
-            _vkService.Dispose();
+            _vkAuthService.Dispose();
             base.Dispose(disposing);
         }
     }

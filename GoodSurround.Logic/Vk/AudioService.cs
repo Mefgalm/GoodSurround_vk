@@ -172,7 +172,7 @@ namespace GoodSurround.Logic.Vk
                     Data = Enumerable.Empty<ApiModels.Audio>(),
                 };
 
-            skip = skip < 0 ? 1 : skip + 1;
+            skip = skip <= 0 ? 1 : skip + 1;
 
             IEnumerable<int> pageNumbers = Enumerable.Range(skip, take);
 
