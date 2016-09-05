@@ -24,7 +24,8 @@
         </div>
         <div class="footer">
             <button class="custom-button">Add to schedule</button>
-            <button class="custom-button">Find more people</button>
+            <button class="custom-button" ng-click="openSearchModal()">Find more people</button>
         </div>
     </div>
 </div>
+<div ng-include="'templates/modals/search-people.html'"></div>

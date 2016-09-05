@@ -1,5 +1,5 @@
-angular.module('GoodSurround').controller('ScheduleController', ['$scope',
-    function ($scope) {
+angular.module('GoodSurround').controller('ScheduleController', ['$scope', '$uibModal',
+    function ($scope, $uibModal) {
         $scope.displayUsers = false;
 
         $scope.toggleUsersPanel = function () {
@@ -28,4 +28,18 @@ angular.module('GoodSurround').controller('ScheduleController', ['$scope',
             albumsCount: 7,
             songsCount: 783
         });
+
+        $scope.openSearchModal = function () {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'search-people.html',
+                controller: 'PeopleSearchController'
+            });
+
+            modalInstance.result.then(function success (message) {
+                console.log(message);
+            }, function failure () {
+                console.log('Modal dismissed at: ' + new Date());
+            });
+        };
     }]);
