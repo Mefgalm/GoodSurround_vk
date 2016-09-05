@@ -82,6 +82,7 @@ body, html {
     background-color: #233237;
     overflow-y: scroll;
     padding: 25px;
+    margin-bottom: 100px;
 }
 
 .users-container .user-row {
@@ -142,4 +143,35 @@ body, html {
     width: 70px;
     text-align: center;
     margin-left: auto;
+}
+
+.users-container .footer {
+    position: absolute;
+    bottom: 0;
+    left: 100px;
+    height: 100px;
+    width: calc(100% - 100px);
+    width: -webkit-calc(100% - 100px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #233237;
+    border-top: 2px solid #984b43;
+}
+
+.custom-button {
+    background-color: #eac67a;
+    border: 1px solid black;
+    padding: 5px 15px;
+    font-family: inherit;
+    font-size: 100%;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    height: 45px;
+    margin: 10px;
+    width: 170px;
+}
+.custom-button:hover {
+    background-color: #ffe79f;
 }
