@@ -247,3 +247,6 @@ ModelManifest.xml
 #----------------------------------------------------------
 .idea/
 GoodSurround/frontend/bower_components/
+GoodSurround/frontend/bower.cmd
+GoodSurround/frontend/git.cmd
+GoodSurround/frontend/node.cmd

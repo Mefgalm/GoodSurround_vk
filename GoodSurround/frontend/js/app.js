@@ -7,9 +7,13 @@ function ($routeProvider, $httpProvider, $locationProvider) {
         templateUrl: 'templates/login.html',
         controller: 'LoginController'
     }).
-    when('/find', {
-        templateUrl: 'templates/find.html',
-        controller: 'FindController'
+    when('/users', {
+        templateUrl: 'templates/users.html',
+        controller: 'UsersController'
+    }).
+    when('/schedule', {
+        templateUrl: 'templates/schedule.html',
+        controller: 'ScheduleController'
     }).
     otherwise({
         redirectTo: '/'
