@@ -200,7 +200,7 @@ body, html {
 .custom-modal .modal-footer {
     padding: 0;
     color: #eac67a;
-    border: 0;
+    border-top: 2px solid #984b43;
 }
 
 .search-query {
@@ -231,12 +231,37 @@ body, html {
 .search-results .user-row {
     border-radius: 5px;
     background-color: #eac67a;
-    margin: 0 3px 7px;
+    margin: 7px 4px 0;
     padding: 7px;
     height: 50px;
-    width: 250px;
+    width: 270px;
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;
     cursor: pointer;
+}
+
+.user-row.selected {
+    background-color: #984b43 !important;
+}
+.user-row.selected .name:after {
+    background: linear-gradient(to right, rgba(152, 75, 67, 0.5) 0%, rgba(152, 75, 67, 0.9) 50%, rgba(152, 75, 67, 1) 100%);
+}
+
+.doge-holder {
+    width: 120px;
+    height: 120px;
+    background-color: #eac67a;
+    line-height: 120px;
+    text-align: center;
+    border-radius: 60px;
+    overflow: hidden;
+    margin: 20px auto;
+}
+.doge-img {
+    width: 100px;
+}
+
+.search-results .no-results {
+    text-align: center;
 }
