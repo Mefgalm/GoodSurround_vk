@@ -29,6 +29,9 @@ namespace GoodSurround.Logic.Vk
             if (dataUser == null)
                 return new ApiResponse<DataModels.User>("User with this token not found");
 
+            if (dataUser.ExpiredAt < DateTime.UtcNow)
+                return new ApiResponse<DataModels.User>("Token expired. Please, update it ^^");
+
             return new ApiResponse<DataModels.User>()
             {
                 Ok = true,
@@ -110,6 +113,7 @@ namespace GoodSurround.Logic.Vk
                 dataUser.LastName = vkUser.last_name;
                 dataUser.Photo50 = vkUser.photo_50;
                 dataUser.AccessToken = accessToken;
+                dataUser.Token = Guid.NewGuid();
                 dataUser.ExpiredAt = DateTime.UtcNow.AddDays(TokenExpiredAtDays);
             }
 
