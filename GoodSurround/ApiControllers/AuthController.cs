@@ -17,13 +17,13 @@ namespace GoodSurround.ApiControllers
         }
 
         [HttpPost, Route("register")]
-        public ApiResponse<ApiModels.User> Register([FromBody]RegisterRequest request)
+        public ApiResponse<ApiModels.AuthUser> Register([FromBody]RegisterRequest request)
         {
             return _vkAuthService.RegisterNewUser(request.Code);
         }
 
         [HttpPut, Route("updateToken")]
-        public ApiResponse<ApiModels.User> UpdateToken(Guid token)
+        public ApiResponse<ApiModels.AuthUser> UpdateToken(Guid token)
         {
             return _vkAuthService.UpdateToken(token);
         }

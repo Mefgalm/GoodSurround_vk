@@ -19,14 +19,14 @@ namespace GoodSurround.ApiControllers
             _vkMusicService = new AudioService();
         }
 
-        [HttpPost, Route("loadMusic/{token}")]
+        [HttpPost, Route("loadAudios/{token}")]
         public ApiResponse<object> LoadMusic(Guid token)
         {
             ApiResponse<DataModels.User> response = _vkAuthService.CheckToken(token);
             if (!response.Ok)
                 return new ApiResponse<object>(response.ErrorMessage);
 
-            return _vkMusicService.LoadMusic(response.Data);
+            return _vkMusicService.LoadAudios(response.Data);
         }
 
         [HttpGet, Route("scheduleAudios")]
@@ -39,7 +39,7 @@ namespace GoodSurround.ApiControllers
             return _vkMusicService.GetAudios(response.Data, scheduleId, skip, take);
         }
 
-        [HttpPost, Route("audiosTest")]
+        [HttpPost, Route("rawAudios")]
         public ApiResponse<IEnumerable<ApiModels.Audio>> GetAudios([FromUri] Guid token, [FromBody]AudioRequest request)
         {
             ApiResponse<DataModels.User> response = _vkAuthService.CheckToken(token);
@@ -49,8 +49,7 @@ namespace GoodSurround.ApiControllers
             return _vkMusicService.GetAudios(request);
         }
              
-
-        [HttpGet, Route("audios")]
+        [HttpGet, Route("myAudios")]
         public ApiResponse<IEnumerable<ApiModels.Audio>> GetAudios(Guid token, int skip, int take)
         {
             ApiResponse<DataModels.User> response = _vkAuthService.CheckToken(token);

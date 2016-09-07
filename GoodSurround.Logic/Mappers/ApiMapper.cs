@@ -39,5 +39,17 @@
                 Photo50 = user.Photo50,
             };
         }
+
+        public static ApiModels.AuthUser GetAuthUser(DataModels.User user)
+        {
+            return new ApiModels.AuthUser()
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Photo50 = user.Photo50,
+                Token = user.Token,
+            };
+        }
     }
 }

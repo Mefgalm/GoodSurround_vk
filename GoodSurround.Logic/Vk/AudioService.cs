@@ -26,7 +26,7 @@ namespace GoodSurround.Logic.Vk
             _vkWebService = new WebService();
         }
 
-        public ApiResponse<object> LoadMusic(DataModels.User user)
+        public ApiResponse<object> LoadAudios(DataModels.User user)
         {
             //get and remove all current user's albums/audios
             List<DataModels.Album> dataAlbumList = _dbContext.Albums.Where(x => x.UserId == user.Id).ToList();
@@ -130,12 +130,51 @@ namespace GoodSurround.Logic.Vk
 
         public ApiResponse<IEnumerable<ApiModels.Audio>> GetAudios(AudioRequest request)
         {
-            bool[] orders = new bool[] { true, false };
+            //builder user id list
+            IEnumerable<int> userIds = request.Users.Select(x => x.UserId);
 
-            
+            //exclude old audios and get only audios for special users
+            IQueryable<DataModels.Audio> audioQry = _dbContext
+                .Audios
+                .Where(x => !request.ExcludeAudios.Contains(x.Id)
+                         && userIds.Contains(x.UserId))
+                .OrderBy(x => Guid.NewGuid());
 
+            var audioQryList = new List<IQueryable<DataModels.Audio>>();
 
-            throw new NotImplementedException();
+            //builder queries
+            foreach(var req in request.Users)
+            {
+                IQueryable<DataModels.Audio> userAudioQry = _dbContext
+                    .Audios
+                    .Where(x => x.UserId == req.UserId);
+
+                if(!req.IsAudioMixes)
+                {
+                    userAudioQry = userAudioQry.OrderBy(x => x.Order);
+                }
+
+                userAudioQry = userAudioQry.Take(req.AudioCount);
+
+                audioQryList.Add(userAudioQry);
+            }
+
+            IQueryable<DataModels.Audio> totalAudioQry = audioQryList.FirstOrDefault() ?? 
+                Enumerable.Empty<DataModels.Audio>().AsQueryable();
+
+            for(int i = 1; i < audioQryList.Count; i++)
+            {
+                totalAudioQry = totalAudioQry.Concat(audioQryList[i]);
+            }
+
+            //materialize audios
+            return new ApiResponse<IEnumerable<ApiModels.Audio>>()
+            {
+                Ok = true,
+                Data = totalAudioQry
+                    .ToList()
+                    .Select(x => ApiMapper.GetAudio(x)),                
+            };
         }
 
         public ApiResponse<IEnumerable<ApiModels.Audio>> GetAudios(DataModels.User user, int skip, int take)
