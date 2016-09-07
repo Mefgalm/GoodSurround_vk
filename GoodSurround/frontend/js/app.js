@@ -1,4 +1,4 @@
-angular.module('GoodSurround', ['ngRoute']);
+angular.module('GoodSurround', ['ngRoute', 'ui.bootstrap']);
 
 angular.module('GoodSurround').config(['$routeProvider', '$httpProvider', '$locationProvider',
 function ($routeProvider, $httpProvider, $locationProvider) {

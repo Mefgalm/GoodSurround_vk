@@ -1,0 +1,38 @@
+<script type="text/ng-template" id="search-people.html">
+    <div class="custom-modal">
+        <div class="modal-header">
+            <span>Searching people...</span>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <input id="search-query" type="text" class="search-query" autofocus
+                ng-model="searchQuery"/>
+            <div ng-hide="searchQuery.length">
+                <label for="search-query" class="text-light search-query-label">Type in here to find someone</label>
+                <img src="images/arrow.svg" class="custom-arrow" />
+            </div>
+            <div class="search-results"
+                ng-show="searchQuery.length">
+                <div class="no-results" ng-show="!searchResults.length">
+                    <div class="doge-holder">
+                        <img class="doge-img" src="images/no-results.svg">
+                    </div>
+                    <span class="text-light">Wow, we cannot find this...</span>
+                </div>
+                <div class="user-row" ng-repeat="user in searchResults"
+                    ng-click="toggleSelection(user)"
+                    ng-class="{'selected': user.isSelected}">
+                    <div class="avatar">
+                        <img ng-src="{{user.avatar}}" />
+                    </div>
+                    <div class="name">
+                        <span>{{user.name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <span>People selected: {{selectedUsers.length}}</span>
+            <button class="custom-button" type="button" ng-click="ok()">OK</button>
+        </div>
+    </div>
+</script>
