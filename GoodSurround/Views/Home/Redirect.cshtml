@@ -101,6 +101,32 @@
                 }
             });
         });
+        $("#rawAudios").click(function () {
+            $.ajax({
+                method: "POST",
+                url: "/api/v1/schedule/rawAudios?token=" + token,
+                data: {
+                    Users: [
+                        {
+                            UserId: 17334274,
+                            AudioCount: 4,
+                            IsAudioMixes: true
+                        },
+                        {
+                            UserId: 382451345,
+                            AudioCount: 4,
+                            IsAudioMixes: false
+                        }                        
+                    ],
+                    excludeAudios: [
+
+                    ],
+                },
+                success: function (result) {
+                    console.log(result);
+                }
+            });
+        });
     });
 </script>
 <button id="register">Register user</button>
@@ -108,4 +134,6 @@
 <button id="getAudios">Get audios</button>
 <button id="createSchedule">Create schedule</button>
 <button id="removeSchedule">Remove schedule</button>
+<button id="rawAudios">Raw audios</button>
+
 

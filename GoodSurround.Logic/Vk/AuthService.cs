@@ -29,6 +29,9 @@ namespace GoodSurround.Logic.Vk
             if (dataUser == null)
                 return new ApiResponse<DataModels.User>("User with this token not found");
 
+            if (dataUser.ExpiredAt < DateTime.UtcNow)
+                return new ApiResponse<DataModels.User>("Token expired. Please, update it ^^");
+
             return new ApiResponse<DataModels.User>()
             {
                 Ok = true,
@@ -36,26 +39,26 @@ namespace GoodSurround.Logic.Vk
             };            
         }
 
-        public ApiResponse<ApiModels.User> UpdateToken(Guid token)
+        public ApiResponse<ApiModels.AuthUser> UpdateToken(Guid token)
         {
             DataModels.User dataUser = _dbContext.Users.FirstOrDefault(x => x.Token == token);
 
             if(dataUser == null)            
-                return new ApiResponse<ApiModels.User>("User with this token not found");
+                return new ApiResponse<ApiModels.AuthUser>("User with this token not found");
             
             dataUser.Token = Guid.NewGuid();
             dataUser.ExpiredAt = DateTime.UtcNow.AddDays(TokenExpiredAtDays);
 
             _dbContext.SaveChanges();
 
-            return new ApiResponse<ApiModels.User>()
+            return new ApiResponse<ApiModels.AuthUser>()
             {
                 Ok = true,
-                Data = ApiMapper.GetUser(dataUser),
+                Data = ApiMapper.GetAuthUser(dataUser),
             };
         }
 
-        public ApiResponse<ApiModels.User> RegisterNewUser(string code)
+        public ApiResponse<ApiModels.AuthUser> RegisterNewUser(string code)
         {
             AccessToken vkAccessToken = _vkWebService.GetAccessToken(code);
             string accessToken = vkAccessToken.access_token;
@@ -63,7 +66,7 @@ namespace GoodSurround.Logic.Vk
 
             if(string.IsNullOrWhiteSpace(code))
             {
-                return new ApiResponse<ApiModels.User>($"{nameof(code)} can't be null or white space");
+                return new ApiResponse<ApiModels.AuthUser>($"{nameof(code)} can't be null or white space");
             }
           
             UserEntity userEntity = null;
@@ -74,17 +77,17 @@ namespace GoodSurround.Logic.Vk
             } catch(Exception ex)
             {
                 _logger.Error($"{nameof(RegisterNewUser)} failed: {ex.Message}");
-                return new ApiResponse<ApiModels.User>(ex.Message);
+                return new ApiResponse<ApiModels.AuthUser>(ex.Message);
             }
 
             if(userEntity == null)            
-                return new ApiResponse<ApiModels.User>("Something went wrong");
+                return new ApiResponse<ApiModels.AuthUser>("Something went wrong");
             
             if(userEntity.error != null)            
-                return new ApiResponse<ApiModels.User>(userEntity.error?.error_msg ?? "Unknown error");
+                return new ApiResponse<ApiModels.AuthUser>(userEntity.error?.error_msg ?? "Unknown error");
             
             if(userEntity.response == null || userEntity.response.Count() != 1)            
-                return new ApiResponse<ApiModels.User>("No user data");
+                return new ApiResponse<ApiModels.AuthUser>("No user data");
             
 
             VkModels.User vkUser = userEntity.response.First();
@@ -110,15 +113,16 @@ namespace GoodSurround.Logic.Vk
                 dataUser.LastName = vkUser.last_name;
                 dataUser.Photo50 = vkUser.photo_50;
                 dataUser.AccessToken = accessToken;
+                dataUser.Token = Guid.NewGuid();
                 dataUser.ExpiredAt = DateTime.UtcNow.AddDays(TokenExpiredAtDays);
             }
 
             _dbContext.SaveChanges();
 
-            return new ApiResponse<ApiModels.User>()
+            return new ApiResponse<ApiModels.AuthUser>()
             {
                 Ok = true,
-                Data = ApiMapper.GetUser(dataUser),
+                Data = ApiMapper.GetAuthUser(dataUser),
             };
         }     
 

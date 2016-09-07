@@ -295,18 +295,17 @@
     <Content Include="frontend\bower_components\jquery\src\wrap.js" />
     <Content Include="frontend\bower_components\underscore\underscore-min.js" />
     <Content Include="frontend\bower_components\underscore\underscore.js" />
-    <Content Include="frontend\css\main.css" />
+    <Content Include="frontend\css\d-main.css" />
+    <Content Include="frontend\css\v-main.css" />
     <Content Include="frontend\index.html" />
     <Content Include="frontend\js\app.js" />
     <Content Include="frontend\js\controllers\login.js" />
+    <Content Include="frontend\js\controllers\schedule.js" />
     <Content Include="frontend\js\controllers\users.js" />
     <Content Include="frontend\templates\login.html" />
+    <Content Include="frontend\templates\schedule.html" />
     <Content Include="frontend\templates\users.html" />
     <Content Include="Global.asax" />
-    <Content Include="scripts\ai.0.22.19-build00125.js" />
-    <Content Include="scripts\ai.0.22.19-build00125.min.js" />
-    <Content Include="scripts\bootstrap.js" />
-    <Content Include="scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
@@ -501,10 +500,6 @@
     <Content Include="frontend\bower_components\components-font-awesome\scss\_variables.scss" />
     <None Include="Properties\PublishProfiles\goodsurround - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\goodsurround - Web Deploy.pubxml" />
-    <None Include="scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="scripts\jquery-1.10.2.js" />
-    <Content Include="scripts\jquery-1.10.2.min.js" />
-    <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -563,8 +558,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Auth\Redirect.cshtml" />
+    <Content Include="Views\Home\Redirect.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -575,6 +569,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="scripts\" />
+    <Folder Include="Views\Auth\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GoodSurround.ApiModels\GoodSurround.ApiModels.csproj">
