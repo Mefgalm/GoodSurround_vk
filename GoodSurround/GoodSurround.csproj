@@ -295,12 +295,15 @@
     <Content Include="frontend\bower_components\jquery\src\wrap.js" />
     <Content Include="frontend\bower_components\underscore\underscore-min.js" />
     <Content Include="frontend\bower_components\underscore\underscore.js" />
-    <Content Include="frontend\css\main.css" />
+    <Content Include="frontend\css\d-main.css" />
+    <Content Include="frontend\css\v-main.css" />
     <Content Include="frontend\index.html" />
     <Content Include="frontend\js\app.js" />
     <Content Include="frontend\js\controllers\login.js" />
+    <Content Include="frontend\js\controllers\schedule.js" />
     <Content Include="frontend\js\controllers\users.js" />
     <Content Include="frontend\templates\login.html" />
+    <Content Include="frontend\templates\schedule.html" />
     <Content Include="frontend\templates\users.html" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.19-build00125.js" />

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Album.cs" />
     <Compile Include="Audio.cs" />
+    <Compile Include="Messages\AudioRequest.cs" />
     <Compile Include="Messages\RegisterRequest.cs" />
     <Compile Include="Messages\Schedule.cs" />
     <Compile Include="Messages\ScheduleRow.cs" />

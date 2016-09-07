@@ -3,6 +3,7 @@ using GoodSurround.Logic.Response;
 using System;
 using System.Web.Http;
 using System.Collections.Generic;
+using GoodSurround.ApiModels.Messages;
 
 namespace GoodSurround.ApiControllers
 {
@@ -22,7 +23,7 @@ namespace GoodSurround.ApiControllers
         public ApiResponse<object> LoadMusic(Guid token)
         {
             ApiResponse<DataModels.User> response = _vkAuthService.CheckToken(token);
-            if(!response.Ok)            
+            if (!response.Ok)
                 return new ApiResponse<object>(response.ErrorMessage);
 
             return _vkMusicService.LoadMusic(response.Data);
@@ -37,6 +38,17 @@ namespace GoodSurround.ApiControllers
 
             return _vkMusicService.GetAudios(response.Data, scheduleId, skip, take);
         }
+
+        [HttpPost, Route("audiosTest")]
+        public ApiResponse<IEnumerable<ApiModels.Audio>> GetAudios([FromUri] Guid token, [FromBody]AudioRequest request)
+        {
+            ApiResponse<DataModels.User> response = _vkAuthService.CheckToken(token);
+            if (!response.Ok)
+                return new ApiResponse<IEnumerable<ApiModels.Audio>>(response.ErrorMessage);
+
+            return _vkMusicService.GetAudios(request);
+        }
+             
 
         [HttpGet, Route("audios")]
         public ApiResponse<IEnumerable<ApiModels.Audio>> GetAudios(Guid token, int skip, int take)

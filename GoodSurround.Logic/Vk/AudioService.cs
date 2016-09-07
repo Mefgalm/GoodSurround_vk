@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GoodSurround.ApiModels;
+using GoodSurround.ApiModels.Messages;
 
 namespace GoodSurround.Logic.Vk
 {
@@ -124,6 +126,16 @@ namespace GoodSurround.Logic.Vk
             {
                 Ok = true
             };
+        }
+
+        public ApiResponse<IEnumerable<ApiModels.Audio>> GetAudios(AudioRequest request)
+        {
+            bool[] orders = new bool[] { true, false };
+
+            
+
+
+            throw new NotImplementedException();
         }
 
         public ApiResponse<IEnumerable<ApiModels.Audio>> GetAudios(DataModels.User user, int skip, int take)
