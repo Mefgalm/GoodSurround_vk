@@ -16,6 +16,12 @@ namespace GoodSurround.Logic.Response
             ErrorMessage = errorMessage;
         }
 
+        public ApiResponse(T data)
+        {
+            Ok = true;
+            Data = data;
+        }
+
         public ApiResponse(bool ok, string errorMessage)
         {
             Ok = ok;

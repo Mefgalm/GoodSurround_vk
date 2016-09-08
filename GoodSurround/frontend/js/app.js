@@ -19,6 +19,7 @@ function ($routeProvider, $httpProvider, $locationProvider) {
         redirectTo: '/'
     });
 
+    console.log('rouser provicer');
     //$locationProvider.html5Mode({
     //    enabled: true,
     //    requireBase: false

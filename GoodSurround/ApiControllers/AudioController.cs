@@ -48,6 +48,16 @@ namespace GoodSurround.ApiControllers
 
             return _vkMusicService.GetAudios(request);
         }
+
+        [HttpGet, Route("newScheduleAudios")]
+        public ApiResponse<IEnumerable<ApiModels.Audio>> GetAudiosNew(Guid token, int scheduleId, int skip, int take)
+        {
+            ApiResponse<DataModels.User> response = _vkAuthService.CheckToken(token);
+            if (!response.Ok)
+                return new ApiResponse<IEnumerable<ApiModels.Audio>>(response.ErrorMessage);
+
+            return _vkMusicService.GetNewAudios(response.Data, scheduleId, skip, take);
+        }
              
         [HttpGet, Route("myAudios")]
         public ApiResponse<IEnumerable<ApiModels.Audio>> GetAudios(Guid token, int skip, int take)

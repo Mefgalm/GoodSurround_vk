@@ -47,11 +47,11 @@ namespace GoodSurround.Logic.Vk
 
             IEnumerable<IGrouping<int, ScheduleRow>> scheduleRowsGroupIndex = schedule.ScheduleRows.GroupBy(x => x.UserId);
 
-            foreach (var sr in scheduleRowsGroupIndex)
-            {
-                if (sr.GroupBy(x => x.CreateRandomOrder).Count() > 1)
-                    return new ApiResponse<object>($"User {sr.Key} have more then one order");
-            }
+            //foreach (var sr in scheduleRowsGroupIndex)
+            //{
+            //    if (sr.GroupBy(x => x.CreateRandomOrder).Count() > 1)
+            //        return new ApiResponse<object>($"User {sr.Key} have more then one order");
+            //}
 
             DataModels.Schedule dataSchedule = new DataModels.Schedule()
             {
@@ -71,10 +71,10 @@ namespace GoodSurround.Logic.Vk
             foreach(var sr in scheduleRowsGroupIndex)
             {
                 ScheduleRow firstScheduleRow = sr.First();
-                if(firstScheduleRow.CreateRandomOrder)
-                {
-                    CreateRandomOrderForUser(firstScheduleRow.UserId, addedScheduleId);
-                }
+                //if(firstScheduleRow.CreateRandomOrder)
+                //{
+                //    CreateRandomOrderForUser(firstScheduleRow.UserId, addedScheduleId);
+                //}
 
                 for(int i = 0; i < sr.Count(); i++)
                 {
@@ -130,24 +130,24 @@ namespace GoodSurround.Logic.Vk
             };
         }
 
-        private void CreateRandomOrderForUser(int userId, int scheduleId)
-        {
-            List<DataModels.Audio> audioList = _dbContext
-                .Audios
-                .Where(x => x.UserId == userId)
-                .ToList();
+        //private void CreateRandomOrderForUser(int userId, int scheduleId)
+        //{
+        //    List<DataModels.Audio> audioList = _dbContext
+        //        .Audios
+        //        .Where(x => x.UserId == userId)
+        //        .ToList();
 
-            ShuffleOrder(audioList);
+        //    ShuffleOrder(audioList);
 
-            _dbContext.MixAudios.AddRange(audioList.Select(x => new DataModels.MixAudio()
-            {
-                Order = x.Order,
-                AudioId = x.Id,
-                ScheduleId = scheduleId,
-                UserId = userId,
-            }));
-            _dbContext.SaveChanges();
-        }
+        //    _dbContext.MixAudios.AddRange(audioList.Select(x => new DataModels.MixAudio()
+        //    {
+        //        Order = x.Order,
+        //        AudioId = x.Id,
+        //        ScheduleId = scheduleId,
+        //        UserId = userId,
+        //    }));
+        //    _dbContext.SaveChanges();
+        //}
 
         public void ShuffleOrder(List<DataModels.Audio> audioList)
         {

@@ -128,6 +128,77 @@ namespace GoodSurround.Logic.Vk
             };
         }
 
+        public ApiResponse<IEnumerable<ApiModels.Audio>> GetNewAudios(DataModels.User user, int scheduleId, int skip, int take)
+        {
+            if (take <= 0)
+                return new ApiResponse<IEnumerable<ApiModels.Audio>>()
+                {
+                    Ok = true,
+                    Data = Enumerable.Empty<ApiModels.Audio>(),
+                };
+
+            skip = skip <= 0 ? 1 : skip + 1;
+
+            IEnumerable<int> pageNumbers = Enumerable.Range(skip, take);
+
+            var scheduleQry =
+                (from s in _dbContext.Schedules
+                 where s.Id == scheduleId
+                 join sr in _dbContext.ScheduleRows on s.Id equals sr.ScheduleId
+                 select new
+                 {
+                     Schedule = s,
+                     ScheduleRow = sr
+                 } into scheduleRows
+                 group scheduleRows by scheduleRows.ScheduleRow.UserId into _s
+                 select new
+                 {
+                     UserId = _s.Key,
+                     ScheduleRows = _s,
+                 } into userRows
+                 from pn in pageNumbers
+                 select userRows.ScheduleRows.Select(x => new
+                 {
+                     GroupIndex = x.ScheduleRow.GroupIndex
+                                 + (userRows.ScheduleRows.Count() * (pn - 1)),
+                     Order = x.ScheduleRow.Order
+                                 + (x.Schedule.BlockSize * (pn - 1)),
+                     UserId = x.ScheduleRow.UserId,
+
+                 }))
+                .SelectMany(x => x);
+
+            List<ApiModels.Audio> audioList =
+                (from s in scheduleQry
+
+                 join a in _dbContext.Audios on
+                               new { index = s.GroupIndex, userId = s.UserId }
+                        equals new { index = a.Order, userId = a.UserId }
+                 select new
+                 {
+                     Audio = a,
+                     Order = s.Order,
+                 })
+                .OrderBy(x => x.Order)
+                .ToList()
+                .Select(x => ApiMapper.GetAudio(x.Audio))
+                .ToList();
+
+            for (int i = 0; i < audioList.Count(); i++)
+            {
+                AudioById audioEntity = _vkWebService.GetAudio(user.AccessToken, user.Id, audioList[i].VkId);
+
+                string url = audioEntity?.response?.FirstOrDefault()?.url;
+                audioList[i].Url = url;
+            }
+
+            return new ApiResponse<IEnumerable<ApiModels.Audio>>()
+            {
+                Ok = true,
+                Data = audioList.Where(x => !string.IsNullOrWhiteSpace(x.Url)),
+            };
+        }
+
         public ApiResponse<IEnumerable<ApiModels.Audio>> GetAudios(AudioRequest request)
         {
             //builder user id list

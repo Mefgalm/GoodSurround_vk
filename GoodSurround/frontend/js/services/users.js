@@ -67,9 +67,15 @@ angular.module('GoodSurround').service('Users', [function () {
 
     function find (searchQuery) {
         return new Promise(function (resolve) {
-            var searchResults = globalUsers.filter(function (user) {
-                return user.name.toLowerCase().indexOf(searchQuery) !== -1;
-            });
+            $http.get('/api/v1/audio/user', {
+                 params: {
+
+                 }})
+                 .then(function (response) {
+                 });
+            //var searchResults = globalUsers.filter(function (user) {
+            //    return user.name.toLowerCase().indexOf(searchQuery) !== -1;
+            //});
             return resolve(searchResults);
         });
     }

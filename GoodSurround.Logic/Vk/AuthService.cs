@@ -60,14 +60,14 @@ namespace GoodSurround.Logic.Vk
 
         public ApiResponse<ApiModels.AuthUser> RegisterNewUser(string code)
         {
-            AccessToken vkAccessToken = _vkWebService.GetAccessToken(code);
-            string accessToken = vkAccessToken.access_token;
-            int userId = vkAccessToken.user_id;
-
-            if(string.IsNullOrWhiteSpace(code))
+            if (string.IsNullOrWhiteSpace(code))
             {
                 return new ApiResponse<ApiModels.AuthUser>($"{nameof(code)} can't be null or white space");
             }
+
+            AccessToken vkAccessToken = _vkWebService.GetAccessToken(code);
+            string accessToken = vkAccessToken.access_token;
+            int userId = vkAccessToken.user_id;
           
             UserEntity userEntity = null;
 

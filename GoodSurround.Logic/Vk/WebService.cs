@@ -24,7 +24,13 @@ namespace GoodSurround.Logic.Vk
 
             using (var webClient = new WebClient())
             {
-                jsonResponse = webClient.DownloadString(url);
+                try
+                {
+                    jsonResponse = webClient.DownloadString(url);
+                } catch(Exception ex)
+                {
+                    throw new Exception($"Url={url} exception={ex.Message}");
+                }
             }
 
             byte[] cp1252String = Encoding.GetEncoding(1252).GetBytes(jsonResponse);
@@ -39,21 +45,18 @@ namespace GoodSurround.Logic.Vk
             return JsonConvert.DeserializeObject<T>(jsonResponse);
         }
 
-
-
         public AccessToken GetAccessToken(string code)
         {
             string url =
                 "https://oauth.vk.com/access_token?" +
                     $"client_id={VkAppId}" +
                     $"&client_secret={VkAppSercret}" +
-                    $"&redirect_uri={VkRedirectUri}" +
-                    $"&code={code}";
+                    $"&code={code}" +
+                    $"&redirect_uri={VkRedirectUri}";
+                    
 
             return DownloadObject<AccessToken>(url);
         }
-
-
 
         public UserEntity GetUserEntity(string accessToken, int userId)
         {
