@@ -15,6 +15,10 @@ function ($routeProvider, $httpProvider, $locationProvider) {
         templateUrl: 'templates/schedule.html',
         controller: 'ScheduleController'
     }).
+    when('/createSchedule', {
+        templateUrl: 'templates/createSchedule.html',
+        controller: 'CreateScheduleController'
+    }).
     otherwise({
         redirectTo: '/'
     });

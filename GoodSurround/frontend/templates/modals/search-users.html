@@ -1,0 +1,20 @@
+﻿<script type="text/ng-template" id="search-users.html">
+
+    <div class="custom-modal">
+        <div class="modal-header">
+            <span>Searching people...</span>
+        </div>
+        <div class="modal-body" id="modal-body">
+
+            Search:
+            <input ng-model="searchString" ng-change="searchStringOnChange()"/>
+            <div class="col-md-6">
+                Selected users
+            </div>
+            <div class="col-md-6">
+                Users
+            </div>
+            Close
+        </div>
+    </div>
+</script>

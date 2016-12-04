@@ -17,6 +17,7 @@ namespace GoodSurround.ApiControllers
         public UserController()
         {
             _vkUserService = new UserService();
+            _vkAuthService = new AuthService();
         }
 
         [HttpGet, Route("searchUsers")]

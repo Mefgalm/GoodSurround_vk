@@ -6,6 +6,7 @@
   ],
   "description": "",
   "main": "",
+  "directory": "bower_components",
   "license": "MIT",
   "private": true,
   "ignore": [

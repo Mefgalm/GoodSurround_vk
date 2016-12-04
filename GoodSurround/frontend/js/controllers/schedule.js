@@ -6,9 +6,9 @@ angular.module('GoodSurround').controller('ScheduleController', ['$scope', '$uib
             $scope.displayUsers = !$scope.displayUsers;
         };
 
-        Users.saved.getAll().then(function (users) {
-            $scope.users = users;
-        });
+        //Users.saved.getAll().then(function (users) {
+        //    $scope.users = users;
+        //});
 
         $scope.openSearchModal = function () {
             var modalInstance = $uibModal.open({

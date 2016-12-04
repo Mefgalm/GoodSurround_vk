@@ -483,17 +483,23 @@
     <Content Include="frontend\css\d-main.css" />
     <Content Include="frontend\css\v-main.css" />
     <Content Include="frontend\images\arrow.svg" />
+    <Content Include="frontend\images\login-logo.jpg" />
     <Content Include="frontend\images\no-results.svg" />
     <Content Include="frontend\index.html" />
     <Content Include="frontend\js\app.js" />
+    <Content Include="frontend\js\controllers\createSchedule.js" />
     <Content Include="frontend\js\controllers\login.js" />
     <Content Include="frontend\js\controllers\schedule.js" />
     <Content Include="frontend\js\controllers\search-people.js" />
+    <Content Include="frontend\js\controllers\searchUser.js" />
     <Content Include="frontend\js\controllers\users.js" />
+    <Content Include="frontend\js\services\auth.js" />
     <Content Include="frontend\js\services\login.js" />
     <Content Include="frontend\js\services\users.js" />
+    <Content Include="frontend\templates\createSchedule.html" />
     <Content Include="frontend\templates\login.html" />
     <Content Include="frontend\templates\modals\search-people.html" />
+    <Content Include="frontend\templates\modals\search-users.html" />
     <Content Include="frontend\templates\schedule.html" />
     <Content Include="frontend\templates\users.html" />
     <Content Include="Global.asax" />
@@ -613,9 +619,6 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
